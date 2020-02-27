@@ -35,11 +35,11 @@ export const ProductTable = styled.table`
   thead th {
     color: #999;
     text-align: left;
-    padding: 12px
+    padding: 12px;
   }
 
   tbody td {
-    padding: 12pxl
+    padding: 12px;
     border-bottom: 1px solid #eee;
   }
 
@@ -63,7 +63,7 @@ export const ProductTable = styled.table`
     display: flex;
     align-items: center;
 
-    input{
+    input {
       border: 1px solid #ddd;
       border-radius: 4px;
       color: #666;

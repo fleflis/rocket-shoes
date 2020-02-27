@@ -1,109 +1,54 @@
 import React from 'react';
+
 import { MdAddShoppingCart } from 'react-icons/md';
-
 import { ProductList } from './styles';
+import api from '../../services/api';
+import {formatPrice} from '../../util/format';
 
-const Index = () => {
-  return (
-    <ProductList>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/26/HZM-1731-026/HZM-1731-026_zoom2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tenis muito legal</strong>
-        <span>R$129,90</span>
+class Index extends React.Component {
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />
-            <span>3</span>
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/26/HZM-1731-026/HZM-1731-026_zoom2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tenis muito legal</strong>
-        <span>R$129,90</span>
+  state = {
+    products: []
+  }
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />
-            <span>3</span>
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/26/HZM-1731-026/HZM-1731-026_zoom2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tenis muito legal</strong>
-        <span>R$129,90</span>
+  async componentDidMount() {
+    const response = await api.get('products');
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />
-            <span>3</span>
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/26/HZM-1731-026/HZM-1731-026_zoom2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tenis muito legal</strong>
-        <span>R$129,90</span>
+    const data = response.data.map(product => ({
+      ...product,
+      priceFormatted: formatPrice(product.price)
+    }))
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />
-            <span>3</span>
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/26/HZM-1731-026/HZM-1731-026_zoom2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tenis muito legal</strong>
-        <span>R$129,90</span>
+    this.setState({products: data})
+  }
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />
-            <span>3</span>
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://static.netshoes.com.br/produtos/tenis-nike-revolution-5-masculino/26/HZM-1731-026/HZM-1731-026_zoom2.jpg?ims=326x"
-          alt="Tenis"
-        />
-        <strong>Tenis muito legal</strong>
-        <span>R$129,90</span>
+  render() {
+    const {products} = this.state;
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#fff" />
-            <span>3</span>
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-    </ProductList>
-  );
+    return (
+      <ProductList>
+
+        {products.map(product => (
+          <li key={product.id}>
+            <img
+              src={product.image}
+              alt={product.title}
+            />
+            <strong>{product.title}</strong>
+            <span>{product.priceFormatted}</span>
+
+            <button type="button">
+              <div>
+                <MdAddShoppingCart size={16} color="#fff" />
+                <span>1</span>
+              </div>
+              <span>ADICIONAR AO CARRINHO</span>
+            </button>
+          </li>
+        ))}
+      </ProductList>
+    );
+  }
 };
 
 export default Index;
