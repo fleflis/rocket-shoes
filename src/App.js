@@ -1,12 +1,16 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import GlobalStyles from './global/styles';
-import Index from './pages/Index';
+import Routes from './routes';
 
 const App = () => {
   return (
     <>
-      <GlobalStyles />
-      <Index />
+      <BrowserRouter>
+        <GlobalStyles />
+        {/* <Header /> */}
+        <Routes />
+      </BrowserRouter>
     </>
   );
 };
