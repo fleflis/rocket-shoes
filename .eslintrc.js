@@ -30,6 +30,7 @@ module.exports = {
       'warn',
       { extensions : ['.jsx', '.js']}
     ],
-    'no-console' : ['error', {allow: ['tron']}]
+    'no-console' : ['error', {allow: ['tron']}],
+    'no-param-reassign': 'off',
   },
 };
