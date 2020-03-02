@@ -31,7 +31,8 @@ class Index extends React.Component {
   }
 
   render() {
-    const {products} = this.state;
+    const { products } = this.state;
+    const { amount } = this.props;
 
     return (
       <ProductList>
@@ -48,7 +49,7 @@ class Index extends React.Component {
             <button type="button" onClick={() => this.handeAddProduct(product)}>
               <div>
                 <MdAddShoppingCart size={16} color="#fff" />
-                <span>1</span>
+                <span>{amount[product.id] || 0}</span>
               </div>
               <span>ADICIONAR AO CARRINHO</span>
             </button>
@@ -59,7 +60,14 @@ class Index extends React.Component {
   }
 };
 
+const mapStateToProps = state => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+    return amount;
+  }, {})
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
-export default connect(null, mapDispatchToProps)(Index);
+export default connect(mapStateToProps, mapDispatchToProps)(Index);
