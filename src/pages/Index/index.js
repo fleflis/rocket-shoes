@@ -25,9 +25,9 @@ class Index extends React.Component {
     this.setState({products: data})
   }
 
-  handeAddProduct = product => {
-    const { addToCart } = this.props;
-    addToCart(product);
+  handeAddProduct = id => {
+    const { addToCartRequest } = this.props;
+    addToCartRequest(id);
   }
 
   render() {
@@ -46,7 +46,7 @@ class Index extends React.Component {
             <strong>{product.title}</strong>
             <span>{product.priceFormatted}</span>
 
-            <button type="button" onClick={() => this.handeAddProduct(product)}>
+            <button type="button" onClick={() => this.handeAddProduct(product.id)}>
               <div>
                 <MdAddShoppingCart size={16} color="#fff" />
                 <span>{amount[product.id] || 0}</span>
